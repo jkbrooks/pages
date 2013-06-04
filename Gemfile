@@ -7,8 +7,6 @@ gem 'rails', '3.2.13'
 
 gem 'rails-api'
 
-gem 'sqlite3'
-
 gem 'rspec-rails'
 
 gem 'rb-fsevent', '~> 0.9' 
@@ -19,8 +17,16 @@ gem 'childprocess', '0.3.6'
 gem 'spork', '0.9.2'
 gem 'faker'
 gem 'factory_girl_rails'
-gem 'annotate'
 gem 'capybara'
+
+group :development do
+  gem 'sqlite3'
+  gem 'annotate', '~> 2.4.1.beta'
+end
+
+group :production do
+  gem 'pg'
+end
 
 
 # To use ActiveModel has_secure_password
