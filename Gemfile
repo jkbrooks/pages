@@ -11,6 +11,17 @@ gem 'sqlite3'
 
 gem 'rspec-rails'
 
+gem 'rb-fsevent', '~> 0.9' 
+gem 'guard-rspec'
+
+gem 'guard-spork', '1.2.0'
+gem 'childprocess', '0.3.6'
+gem 'spork', '0.9.2'
+gem 'faker'
+gem 'factory_girl_rails'
+gem 'annotate'
+gem 'capybara'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
