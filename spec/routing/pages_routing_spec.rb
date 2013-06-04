@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Api::PagesController do
-  describe "routing" do
+  describe "default routing" do
 
     it "routes to #index" do
       get("/api/pages").should route_to("api/pages#index")
@@ -30,6 +30,23 @@ describe Api::PagesController do
     it "routes to #destroy" do
       delete("/api/pages/1").should route_to("api/pages#destroy", :id => "1")
     end
+  end
 
+  describe "custom routing" do
+    it "routes to #publish" do
+      post("/api/pages/1/publish").should route_to("api/pages#publish", id: "1")
+    end
+
+    it "routes to #published" do
+      get("/api/pages/published").should route_to("api/pages#published")
+    end
+
+    it "routes to #unpublished" do
+      get("/api/pages/unpublished").should route_to("api/pages#unpublished")
+    end
+
+    it "routes to #total_words" do
+      get("/api/pages/1/total_words").should route_to("api/pages#total_words", id: "1")
+    end
   end
 end

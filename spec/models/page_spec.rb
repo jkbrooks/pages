@@ -40,15 +40,18 @@ describe Page do
     end
 
     it {should_not be_valid}
-  end
+  end 
 
-#  describe "Publishing" do
-#    @page_unpublished = FactoryGirl.build(:page_unpublished)
-#    it "returns published pages" do
-#      expect(Page.published).to eq [@page]
-#    end
-#    it "returns unpublished pages" do
-#      expect(Page.unpublished).to eq [@page_unpublished]
-#    end
-#  end
+  describe "Publishing" do
+    before :each do
+      @page_published = Page.create(attributes_for(:page))
+      @page_unpublished = Page.create(attributes_for(:page_unpublished))
+    end
+    it "returns published pages" do
+      expect(Page.published).to eq [@page_published]
+    end
+    it "returns unpublished pages" do 
+      expect(Page.unpublished).to eq [@page_unpublished]
+    end
+  end
 end

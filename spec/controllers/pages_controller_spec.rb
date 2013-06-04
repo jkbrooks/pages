@@ -28,29 +28,31 @@ describe Api::PagesController do
   end
 
   describe "GET index" do
+    before :each do
+      @page = create(:page)
+    end
     it "assigns all pages as @pages" do
-      page = create(:page)
       get :index
-      assigns(:pages).should eq([page])
+      assigns(:pages).should eq([@page])
     end
     it "returns json" do
-      page = create(:page)
       get :index, format: :json
-      expect(response.body).to have_content page.to_json
+      expect(response.body).to have_content @page.to_json
     end
   end
 
   describe "GET show" do
+    before :each do
+      @page = create(:page)
+    end
     it "assigns the requested page as @page" do
-      page = create(:page)
-      get :show, {:id => page.to_param}, valid_session
-      assigns(:page).should eq(page)
+      get :show, {:id => @page.to_param}, valid_session
+      assigns(:page).should eq(@page)
     end
 
     it "returns json" do
-      page = create(:page)
-      get :show, {:id => page.to_param}, valid_session, format: :json
-      expect(response.body).to have_content page.to_json
+      get :show, {:id => @page.to_param}, valid_session, format: :json
+      expect(response.body).to have_content @page.to_json
     end
   end
 
@@ -62,16 +64,17 @@ describe Api::PagesController do
   end
 
   describe "GET edit" do
+    before :each do
+      @page = create(:page)
+    end
     it "assigns the requested page as @page" do
-      page = create(:page)
-      get :edit, {:id => page.to_param}, valid_session
-      assigns(:page).should eq(page)
+      get :edit, {:id => @page.to_param}, valid_session
+      assigns(:page).should eq(@page)
     end
 
     it "returns json" do
-      page = create(:page)
-      get :edit, {:id => page.to_param}, valid_session, format: :json
-      expect(response.body).to have_content page.to_json
+      get :edit, {:id => @page.to_param}, valid_session, format: :json
+      expect(response.body).to have_content @page.to_json
     end
   end
 
@@ -107,39 +110,33 @@ describe Api::PagesController do
   end
 
   describe "PUT update" do
+    before :each do
+      @page = create(:page)
+    end
     describe "with valid params" do
       it "updates the requested page" do 
-        page = create(:page)
-        #page = Page.create! valid_attributes
-        # Assuming there are no other pages in the database, this
-        # specifies that the Page created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
         Page.any_instance.should_receive(:update_attributes).with({ "title" => "MyString" })
-        put :update, {:id => page.to_param, :page => { "title" => "MyString" }}, valid_session
+        put :update, {:id => @page.to_param, :page => { "title" => "MyString" }}, valid_session
       end
 
       it "assigns the requested page as @page" do
-        page = create(:page)
-        put :update, {:id => page.to_param, :page => { "title" => "MyString" }}, valid_session
-        assigns(:page).should eq(page)
+        put :update, {:id => @page.to_param, :page => { "title" => "MyString" }}, valid_session
+        assigns(:page).should eq(@page)
       end
 
       it "returns json" do
-        page = create(:page)
-        put :update, {:id => page.to_param, :page => { "title" => "MyString" }}, valid_session, format: :jason
-        expect(response.body).to have_content page.to_json
+        put :update, {:id => @page.to_param, :page => { "title" => "MyString" }}, valid_session, format: :jason
+        expect(response.body).to have_content @page.to_json
       end
 
     end
 
     describe "with invalid params" do
       it "assigns the page as @page" do 
-        page = create(:page)
         # Trigger the behavior that occurs when invalid params are submitted
         Page.any_instance.stub(:save).and_return(false)
-        put :update, {:id => page.to_param, page: attributes_for(:page_invalid)}, valid_session
-        assigns(:page).should eq(page)
+        put :update, {:id => @page.to_param, page: attributes_for(:page_invalid)}, valid_session
+        assigns(:page).should eq(@page)
       end
 
       #FUTURE TEST - redirects to edit
@@ -147,11 +144,37 @@ describe Api::PagesController do
   end
 
   describe "DELETE destroy" do
+    before :each do
+      @page = create(:page)
+    end
     it "destroys the requested page" do
-      page = create(:page)
       expect {
-        delete :destroy, {:id => page.to_param}, valid_session
+        delete :destroy, {:id => @page.to_param}, valid_session
       }.to change(Page, :count).by(-1)
+    end
+  end
+
+  describe "GET published" do
+    before :each do
+      @page = create(:page)
+      @page_unpublished = create(:page_unpublished)
+    end
+    it "returns a list of published pages only" do
+      get :published, format: :json
+      assigns(:pages).should eq([@page])
+      expect(response.body).to have_content @page_unpublished.to_json
+    end
+  end
+
+  describe "GET unpublished" do
+    before :each do
+      @page = create(:page)
+      @page_unpublished = create(:page_unpublished)
+    end
+    it "returns a list of unpublished pages only" do
+      get :unpublished, format: :json
+      assigns(:pages).should eq([@page_unpublished])
+      expect(response.body).to have_content @page_unpublished.to_json
     end
   end
 end

@@ -63,19 +63,38 @@ class Api::PagesController < ApplicationController
     render json: @page
   end
   
-  # GET /pages
-  # GET /pages.json
+  # GET /pages/published
+  # GET /pages/published.json
   def published
     @pages = Page.published
 
     render json: @pages
   end
 
-  # GET /pages
-  # GET /pages.json
+  # GET /pages/unpublished
+  # GET /pages/unpublished.json
   def unpublished
     @pages = Page.unpublished
 
     render json: @pages
+  end
+
+  # GET /pages/1/total_words
+  # GET /pages/1/total_words.json
+  def total_words
+    @page = Page.find(params[:id])
+    @word_count = @page.title.length + @page.content.length
+
+    render json: @word_count
+  end
+
+  # POST /pages/1/publish
+  # POST /pages/1/publish.json
+  def publish
+    @page = Page.find(params[:id])
+    @page.published_on = Time.now
+    @page.save
+
+    render json: @page
   end
 end
