@@ -155,7 +155,7 @@ describe Api::PagesController do
   end
 
   describe "GET published" do
-    before :each do
+    before :each do 
       @page = create(:page)
       @page_unpublished = create(:page_unpublished)
     end
