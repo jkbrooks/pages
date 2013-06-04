@@ -35,10 +35,20 @@ describe Page do
 
   describe "titles must be unique" do
     before do
-    	@page2 = FactoryGirl.build(:page, content: "Unique content")
-    	@page2.save
+    	@page_not_unique_title = FactoryGirl.build(:page, content: "Unique content")
+    	@page_not_unique_title.save
     end
 
     it {should_not be_valid}
   end
+
+#  describe "Publishing" do
+#    @page_unpublished = FactoryGirl.build(:page_unpublished)
+#    it "returns published pages" do
+#      expect(Page.published).to eq [@page]
+#    end
+#    it "returns unpublished pages" do
+#      expect(Page.unpublished).to eq [@page_unpublished]
+#    end
+#  end
 end

@@ -47,15 +47,35 @@ class Api::PagesController < ApplicationController
     head :no_content
   end
 
+  # GET /pages/new
+  # GET /pages/new.json
   def new
     @page = Page.new
 
     render json: @page
   end
 
+  # GET /pages/1/edit
+  # GET /pages/1/edit.json
   def edit
     @page = Page.find(params[:id])
 
     render json: @page
+  end
+  
+  # GET /pages
+  # GET /pages.json
+  def published
+    @pages = Page.published
+
+    render json: @pages
+  end
+
+  # GET /pages
+  # GET /pages.json
+  def unpublished
+    @pages = Page.unpublished
+
+    render json: @pages
   end
 end

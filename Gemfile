@@ -5,23 +5,24 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'rails-api'
 
-gem 'rspec-rails'
 
-gem 'rb-fsevent', '~> 0.9' 
-gem 'guard-rspec'
-
-gem 'guard-spork', '1.2.0'
-gem 'childprocess', '0.3.6'
-gem 'spork', '0.9.2'
-gem 'faker'
-gem 'factory_girl_rails'
-gem 'capybara'
-
-group :development do
+group :development, :test do
   gem 'sqlite3'
   gem 'annotate', '~> 2.4.1.beta'
+  gem 'rails-api'
+
+	gem 'rspec-rails'
+
+	gem 'rb-fsevent', '~> 0.9' 
+	gem 'guard-rspec'
+
+	gem 'guard-spork', '1.2.0'
+	gem 'childprocess', '0.3.6'
+	gem 'spork', '0.9.2'
+	gem 'faker'
+	gem 'factory_girl_rails' 
+	gem 'capybara'
 end
 
 group :production do

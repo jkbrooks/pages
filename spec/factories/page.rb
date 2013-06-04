@@ -4,6 +4,10 @@ FactoryGirl.define do
   	content "Here is some sample content"
   	published_on "2013-06-02 02:28:12"
 	end 
+	factory :page_unpublished, :class => "Page" do
+		title "Example Title2"
+  	content "Here is some sample content"
+	end 
 	factory :page_invalid, :class => "Page" do
 		title ""
   	content ""

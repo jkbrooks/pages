@@ -15,4 +15,12 @@ class Page < ActiveRecord::Base
 
   validates :content, :title, presence: true
   validates :title, uniqueness: true
+
+  def self.published
+  	where('published_on').order(:published_on)
+	end
+
+	def self.unpublished
+  	where('published_on IS NULL')
+	end
 end
