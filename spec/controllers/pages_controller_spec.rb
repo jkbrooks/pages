@@ -27,6 +27,9 @@ describe Api::PagesController do
     {}
   end
 
+  before :each do
+    @request.env['HTTP_ACCEPT'] = "application/json"
+  end
   describe "GET index" do
     before :each do
       @page = create(:page)

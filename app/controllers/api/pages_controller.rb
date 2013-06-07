@@ -6,7 +6,7 @@ class Api::PagesController < ApplicationController
   def index
     @pages = Page.all
 
-    respond_to do |format|
+    respond_to do |format| 
       format.json {render json: @pages}
       format.xml {render xml: @pages}
     end
@@ -97,7 +97,7 @@ class Api::PagesController < ApplicationController
   def published
     @pages = Page.published
 
-    rrespond_to do |format|
+    respond_to do |format|
       format.json {render json: @pages}
       format.xml {render xml: @pages}
     end

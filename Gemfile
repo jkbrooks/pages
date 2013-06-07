@@ -15,12 +15,12 @@ group :development, :test do
 
 	gem 'rspec-rails'
 
-	gem 'rb-fsevent', '~> 0.9' 
+	gem 'rb-fsevent'
 	gem 'guard-rspec'
 
-	gem 'guard-spork', '1.2.0'
-	gem 'childprocess', '0.3.6'
-	gem 'spork', '0.9.2'
+	gem 'guard-spork'
+	gem 'childprocess'
+	gem 'spork' 
 	gem 'faker'
 	gem 'factory_girl_rails' 
 	gem 'capybara'
