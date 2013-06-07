@@ -91,12 +91,6 @@ describe Api::PagesController do
         assigns(:page).should be_a(Page)
         assigns(:page).should be_persisted
       end
-
-      it "returns json" do
-        expect{
-          post :create, {page: attributes_for(:page)}, valid_session
-          }.to have_content page.to_json
-      end
     end
     describe "with invalid params" do 
       it "does not save the new page in the database" do
@@ -126,7 +120,7 @@ describe Api::PagesController do
 
       it "returns json" do
         put :update, {:id => @page.to_param, :page => { "title" => "MyString" }}, valid_session, format: :jason
-        expect(response.body).to have_content @page.to_json
+        expect(response.body).to have_content @page.content.to_json
       end
 
     end
@@ -150,7 +144,7 @@ describe Api::PagesController do
     it "destroys the requested page" do
       expect {
         delete :destroy, {:id => @page.to_param}, valid_session
-      }.to change(Page, :count).by(-1)
+      }.to change(Page, :count).by(-1) 
     end
   end
 
@@ -159,10 +153,10 @@ describe Api::PagesController do
       @page = create(:page)
       @page_unpublished = create(:page_unpublished)
     end
-    it "returns a list of published pages only" do
+    it "returns a JSON list of published pages only" do
       get :published, format: :json
       assigns(:pages).should eq([@page])
-      expect(response.body).to have_content @page_unpublished.to_json
+      expect(response.body).to_not have_content @page_unpublished.to_json
     end
   end
 
@@ -171,10 +165,20 @@ describe Api::PagesController do
       @page = create(:page)
       @page_unpublished = create(:page_unpublished)
     end
-    it "returns a list of unpublished pages only" do
+    it "returns a JSON list of unpublished pages only" do
       get :unpublished, format: :json
       assigns(:pages).should eq([@page_unpublished])
-      expect(response.body).to have_content @page_unpublished.to_json
+      expect(response.body).to_not have_content @page.to_json
+    end
+  end
+
+  describe "GET total_words" do
+    before :each do
+      @page = create(:page)
+    end
+    it "should return a total word count in JSON" do
+      get :total_words, {:id => @page.to_param}, format: :json
+      expect(response.body).to eq("#{@page.title.length + @page.content.length}")
     end
   end
 end

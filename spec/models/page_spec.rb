@@ -11,7 +11,7 @@
 #
 
 require 'spec_helper'
-
+ 
 describe Page do
   before do
   	 @page = FactoryGirl.build(:page)

@@ -1,4 +1,4 @@
-require "spec_helper"
+require "spec_helper" 
 
 describe Api::PagesController do
   describe "default routing" do
@@ -32,7 +32,7 @@ describe Api::PagesController do
     end
   end
 
-  describe "custom routing" do
+  describe "custom routing" do 
     it "routes to #publish" do
       post("/api/pages/1/publish").should route_to("api/pages#publish", id: "1")
     end

@@ -1,17 +1,26 @@
 class Api::PagesController < ApplicationController
+  include ActionController::MimeResponds
+
   # GET /pages
   # GET /pages.json
   def index
     @pages = Page.all
 
-    render json: @pages
+    respond_to do |format|
+      format.json {render json: @pages}
+      format.xml {render xml: @pages}
+    end
+
   end 
   # GET /pages/1
   # GET /pages/1.json
   def show
     @page = Page.find(params[:id])
 
-    render json: @page
+    respond_to do |format|
+      format.json {render json: @page} 
+      format.xml {render xml: @page}
+    end
   end
 
   # POST /pages
@@ -20,9 +29,16 @@ class Api::PagesController < ApplicationController
     @page = Page.new(params[:page])
 
     if @page.save
-      render json: @page, status: :created 
+      respond_to do |format|
+        format.json {render json: @page, status: :created }
+        format.xml {render xml: @page, status: :created}
+      end
+      
     else
-      render json: @page.errors, status: :unprocessable_entity
+      respond_to do |format|
+        format.json {render json: @page.errors, status: :unprocessable_entity}
+        format.xml {render xml: @page.errors, status: :unprocessable_entity}
+      end
     end
   end
 
@@ -32,9 +48,16 @@ class Api::PagesController < ApplicationController
     @page = Page.find(params[:id])
 
     if @page.update_attributes(params[:page])
-      render json: @page
+      respond_to do |format|
+        format.json {render json: @page, status: :created }
+        format.xml {render xml: @page, status: :created}
+      end
+      
     else
-      render json: @page.errors, status: :unprocessable_entity
+      respond_to do |format|
+        format.json {render json: @page.errors, status: :unprocessable_entity}
+        format.xml {render xml: @page.errors, status: :unprocessable_entity}
+      end
     end
   end
 
@@ -52,7 +75,10 @@ class Api::PagesController < ApplicationController
   def new
     @page = Page.new
 
-    render json: @page
+    respond_to do |format|
+      format.json {render json: @page}
+      format.xml {render xml: @page}
+    end
   end
 
   # GET /pages/1/edit
@@ -60,7 +86,10 @@ class Api::PagesController < ApplicationController
   def edit
     @page = Page.find(params[:id])
 
-    render json: @page
+    respond_to do |format|
+      format.json {render json: @page}
+      format.xml {render xml: @page}
+    end
   end
   
   # GET /pages/published
@@ -68,7 +97,10 @@ class Api::PagesController < ApplicationController
   def published
     @pages = Page.published
 
-    render json: @pages
+    rrespond_to do |format|
+      format.json {render json: @pages}
+      format.xml {render xml: @pages}
+    end
   end
 
   # GET /pages/unpublished
@@ -76,7 +108,10 @@ class Api::PagesController < ApplicationController
   def unpublished
     @pages = Page.unpublished
 
-    render json: @pages
+    respond_to do |format|
+      format.json {render json: @pages}
+      format.xml {render xml: @pages}
+    end
   end
 
   # GET /pages/1/total_words
@@ -85,7 +120,10 @@ class Api::PagesController < ApplicationController
     @page = Page.find(params[:id])
     @word_count = @page.title.length + @page.content.length
 
-    render json: @word_count
+    respond_to do |format|
+      format.json {render json: @word_count}
+      format.xml {render xml: @word_count}
+    end
   end
 
   # POST /pages/1/publish
@@ -95,6 +133,9 @@ class Api::PagesController < ApplicationController
     @page.published_on = Time.now
     @page.save
 
-    render json: @page
+    respond_to do |format|
+      format.json {render json: @pages}
+      format.xml {render xml: @pages}
+    end
   end
 end
