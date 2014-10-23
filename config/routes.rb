@@ -1,4 +1,6 @@
 Pages::Application.routes.draw do
+  root to: "home#home"
+
   namespace :api do
     resources :pages do
       member do
